@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 
 const initialForm = {
   fullName: "",
@@ -18,7 +19,9 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  function handleChange(e) {
+  function handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) {
     const { name, value } = e.target;
 
     setForm((previous) => ({
@@ -27,7 +30,7 @@ export default function Home() {
     }));
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setError("");
@@ -54,8 +57,9 @@ export default function Home() {
       setForm(initialForm);
     } catch (err) {
       setError(
-        err.message ||
-          "Unable to submit your registration. Please try again."
+        err instanceof Error
+          ? err.message
+          : "Unable to submit your registration. Please try again."
       );
     } finally {
       setLoading(false);
@@ -109,10 +113,9 @@ export default function Home() {
           </h1>
 
           <p className="hero-description">
-            Your dream course. Your dream university.
-            One goal. Prepare for your UTME with
-            Levites Online Tutorial and take the next
-            step towards your future.
+            Your dream course. Your dream university. One goal.
+            Prepare for your UTME with Levites Online Tutorial and
+            take the next step towards your future.
           </p>
 
           <div className="hero-actions">
@@ -186,9 +189,7 @@ export default function Home() {
 
       <section className="benefits" id="why-levites">
         <div className="benefit">
-          <div className="benefit-icon purple-icon">
-            ◎
-          </div>
+          <div className="benefit-icon purple-icon">◎</div>
 
           <div>
             <h3>Focused Preparation</h3>
@@ -197,28 +198,20 @@ export default function Home() {
         </div>
 
         <div className="benefit">
-          <div className="benefit-icon gold-icon">
-            ✦
-          </div>
+          <div className="benefit-icon gold-icon">✦</div>
 
           <div>
             <h3>Big Ambitions</h3>
-            <p>
-              Take a confident step towards your dream.
-            </p>
+            <p>Take a confident step towards your dream.</p>
           </div>
         </div>
 
         <div className="benefit">
-          <div className="benefit-icon purple-icon">
-            ↗
-          </div>
+          <div className="benefit-icon purple-icon">↗</div>
 
           <div>
             <h3>Your Next Chapter</h3>
-            <p>
-              Start preparing for university life.
-            </p>
+            <p>Start preparing for university life.</p>
           </div>
         </div>
       </section>
@@ -245,9 +238,9 @@ export default function Home() {
           </h2>
 
           <p>
-            Tell us a little about yourself and your
-            UTME goals. Complete the form carefully
-            to register for Levites Online Tutorial.
+            Tell us a little about yourself and your UTME goals.
+            Complete the form carefully to register for Levites
+            Online Tutorial.
           </p>
 
           <div className="registration-promise">
@@ -266,9 +259,7 @@ export default function Home() {
         <div className="form-card">
           {submitted ? (
             <div className="success-screen">
-              <div className="success-icon">
-                ✓
-              </div>
+              <div className="success-icon">✓</div>
 
               <div className="section-eyebrow">
                 REGISTRATION SUBMITTED
@@ -284,8 +275,8 @@ export default function Home() {
 
               <p className="success-description">
                 Your registration has been sent successfully.
-                Keep an eye on your email for any follow-up
-                from the tutorial administrator.
+                Keep an eye on your email for any follow-up from
+                the tutorial administrator.
               </p>
 
               <div className="success-message">
@@ -318,26 +309,19 @@ export default function Home() {
                   <p>All fields are required.</p>
                 </div>
 
-                <div className="form-number">
-                  01
-                </div>
+                <div className="form-number">01</div>
               </div>
 
               <form onSubmit={handleSubmit}>
                 {/* PERSONAL INFORMATION */}
 
                 <div className="form-section-title">
-                  <span className="form-section-icon">
-                    01
-                  </span>
-
+                  <span className="form-section-icon">01</span>
                   Personal Information
                 </div>
 
                 <div className="field">
-                  <label htmlFor="fullName">
-                    Full Name
-                  </label>
+                  <label htmlFor="fullName">Full Name</label>
 
                   <input
                     id="fullName"
@@ -376,9 +360,7 @@ export default function Home() {
                 </div>
 
                 <div className="field">
-                  <label htmlFor="gender">
-                    Gender
-                  </label>
+                  <label htmlFor="gender">Gender</label>
 
                   <select
                     id="gender"
@@ -391,13 +373,9 @@ export default function Home() {
                       Select your gender
                     </option>
 
-                    <option value="Male">
-                      Male
-                    </option>
+                    <option value="Male">Male</option>
 
-                    <option value="Female">
-                      Female
-                    </option>
+                    <option value="Female">Female</option>
 
                     <option value="Prefer not to say">
                       Prefer not to say
@@ -408,10 +386,7 @@ export default function Home() {
                 {/* UTME INFORMATION */}
 
                 <div className="form-section-title second-section">
-                  <span className="form-section-icon">
-                    02
-                  </span>
-
+                  <span className="form-section-icon">02</span>
                   UTME Information
                 </div>
 
@@ -433,8 +408,8 @@ export default function Home() {
                   />
 
                   <small>
-                    Enter English Language and your
-                    three other subjects.
+                    Enter English Language and your three other
+                    subjects.
                   </small>
                 </div>
 
@@ -490,47 +465,21 @@ export default function Home() {
                       Select your target score
                     </option>
 
-                    <option value="200">
-                      200+
-                    </option>
-
-                    <option value="250">
-                      250+
-                    </option>
-
-                    <option value="270">
-                      270+
-                    </option>
-
-                    <option value="280">
-                      280+
-                    </option>
-
-                    <option value="300">
-                      300+
-                    </option>
-
-                    <option value="320">
-                      320+
-                    </option>
-
-                    <option value="350">
-                      350+
-                    </option>
-
-                    <option value="380">
-                      380+
-                    </option>
+                    <option value="200">200+</option>
+                    <option value="250">250+</option>
+                    <option value="270">270+</option>
+                    <option value="280">280+</option>
+                    <option value="300">300+</option>
+                    <option value="320">320+</option>
+                    <option value="350">350+</option>
+                    <option value="380">380+</option>
                   </select>
                 </div>
 
                 {/* ERROR */}
 
                 {error && (
-                  <div
-                    className="error-message"
-                    role="alert"
-                  >
+                  <div className="error-message" role="alert">
                     <span>!</span>
                     {error}
                   </div>
@@ -550,15 +499,14 @@ export default function Home() {
                     </>
                   ) : (
                     <>
-                      Complete Registration
-                      <span>→</span>
+                      Complete Registration <span>→</span>
                     </>
                   )}
                 </button>
 
                 <p className="privacy-note">
-                  🔒 Your information will be sent securely
-                  to the tutorial administrator.
+                  🔒 Your information will be sent securely to the
+                  tutorial administrator.
                 </p>
               </form>
             </>
@@ -575,7 +523,7 @@ export default function Home() {
           </span>
 
           <span className="footer-brand-subtitle">
-              ONLINE TUTORIAL
+            ONLINE TUTORIAL
           </span>
         </div>
 

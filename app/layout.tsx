@@ -1,13 +1,18 @@
-
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 
-export const metadata = {
-  title: "Levites Online Tutorial | Your Journey to 300+",
+export const metadata: Metadata = {
+  title: "Levites Online Tutorial",
   description:
-    "Register for Levites Online Tutorial and take the next step towards your UTME goals and dream university.",
+    "Prepare for your UTME with Levites Online Tutorial and take the next step towards your future.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
       <body>{children}</body>
